@@ -2,24 +2,29 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import style from "./containerLista.module.css";
 import { faArrowLeft, faArrowRightArrowLeft, faArrowsLeftRight, faInfo } from "@fortawesome/free-solid-svg-icons";
 
-type ListaProps = {
-    page?: string
-};
 
-interface Responsavel {
-    nome: string
-}
 
-interface Local{
+interface dadosAmbiente {
     nomeLocal: string,
     areaID: string,
-    usuarioID: string,
+    responsavel: string, 
 }
 
-interface Patrimônio{
+interface dadosPatrimonioSala{
+    numeroPatrimonioID: string,
     denominacao: string,
-    numeroPatrimonio: string, 
+}
+
+interface dadosDetalhePatrimônio{
+    denominacao: string,
+    // Origem vem de patrimonio
+    localizacaoID: string, 
+    // Responsavel vem de localizacao
+    responsavel: string,
 };
+type ListaProps =  {page:"ambiente"; dados: dadosAmbiente}
+                   | {page: "patrimonioSala"; dados: dadosPatrimonioSala}
+                   | {page: "detalhe"; dados: dadosDetalhePatrimônio}
 
 const ContainerLista = ({ page }: ListaProps, ) => {
     return (
