@@ -2,22 +2,32 @@ import secureLocalStorage from "react-secure-storage"
 import style from "./header.module.css"
 import { useEffect, useState } from "react"
 import { jwtDecode } from "jwt-decode";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faChevronCircleDown, faChevronDown, faUser } from "@fortawesome/free-solid-svg-icons";
 
-type usuario = {
-  nomeTipoUsuario: string,
-  nome: string,
-  email: string,
+type usuarioToken = {
+  //* CARGO
+  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string,
+  //* ID
+  "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier": string,
+  //* NOME
+  "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name": string,
+  //* EMAIL 
+  "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress": string,
+  //* NIF
+  "NIF": string,
 }
 
+const Header = () => {
 
+  // const [usuarioDados, setUsuarioDados] = useState<usuarioToken>();
 
-
-const Header = ({ nomeTipoUsuario, nome: propNome, email: propEmail }: usuario) => {
-
-  const [usuarioDados, setUsuarioDados] = useState<any>(null);
+  const [nome, setNome] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [cargo, setCargo] = useState<string>("");
 
   async function getIdToken() {
-    const token = secureLocalStorage.getItem("Token");
+    const token = secureLocalStorage.getItem("Token") as string;
 
 
     if (!token) {
@@ -26,20 +36,21 @@ const Header = ({ nomeTipoUsuario, nome: propNome, email: propEmail }: usuario) 
     }
 
     try {
-      const usuario = jwtDecode(token.toString()) as any;
-      console.log(usuario)
+      const objToken = jwtDecode<usuarioToken>(token);
+      console.log(objToken)
 
-      const caminho = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/";
 
-      const usuarioFormatado = {
-        id: usuario[caminho + "nameidentifier"],
-        nome: usuario[caminho + "name"],
-        email: usuario[caminho + "emailaddress"],
-        cargo: usuario["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"],
-        nif: usuario["NIF"]
+      const tokenUsuario = {
+        id: objToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"],
+        nome: objToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
+        email: objToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"],
+        cargo: objToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"],
+        nif: objToken["NIF"]
       };
 
-      setUsuarioDados(usuarioFormatado);
+      setNome(tokenUsuario.nome);
+      setEmail(tokenUsuario.email);
+      setCargo(tokenUsuario.cargo);
     } catch (error: any) {
       console.log(error.message)
     }
@@ -52,29 +63,29 @@ const Header = ({ nomeTipoUsuario, nome: propNome, email: propEmail }: usuario) 
   return (
     <>
       <header className={style.topbar}>
-        <nav className={`${style.navbar} layout_guide`} aria-label="Menu principal">
+         <nav className={`${style.navbar} layout_guide`} aria-label="Menu principal"> 
           <a href="#" className={style.logo_link} aria-label="Página inicial">
             <img src="../imgs/Logo Senai.png" alt="Logo SENAI" className={style.logo} />
           </a>
 
           <ul className={style.menu_list}>
             <li>
-              {nomeTipoUsuario === 'Coordenador' ? (<select name="" id="" className={style.menu_link}>
+              {cargo === 'Coordenador' ? (<select name="" id="" className={style.menu_link}>
                 Ambiente
                 <option value="">Ambientes</option>
                 <option value="">Área</option>
                 <option value="">Local</option>
                 <i className="fa-solid fa-chevron-down"/>
               </select>) : (
-                <a href="" >Ambiente</a>
+                <a href="" className={style.menu_link} >Ambiente</a>
               )}
             </li>
 
             <li>
-              {nomeTipoUsuario === 'Coordenador' ? (
-                <a href="#usuarios">Usuários</a>
+              {cargo === 'Coordenador' ? (
+                <a href="#usuarios" className={style.menu_link} >Usuários</a>
               ) : (
-                <a href="#responsaveis">Responsáveis</a>
+                <a href="#responsaveis" className={style.menu_link}>Responsáveis</a>
               )}
             </li>
 
@@ -85,23 +96,22 @@ const Header = ({ nomeTipoUsuario, nome: propNome, email: propEmail }: usuario) 
 
           <section className={style.user_area} aria-label="Informações do usuário">
             <button className={style.user_icon} aria-label="Abrir perfil do usuário">
-              <i className="fa-solid fa-user" />
+              <FontAwesomeIcon icon={faUser}/>
             </button>
-
             <div className={style.user_info}>
-              <strong>{usuarioDados?.nome}</strong>
-              <span>{usuarioDados?.email}</span>
+              <strong>{nome}</strong>
+              <span>{email}</span>
             </div>
 
             <button className={style.arrow_button} aria-label="Abrir opções da conta">
-              <i className={`${style.fa_solid} ${style.fa_chevron_down}`} />
+            <FontAwesomeIcon icon={faChevronDown}/>  
             </button>
           </section>
 
           <button className={style.hamburguer} aria-label="Abrir opções de menu ">
-            <i className={`${style.fa_solid} ${style.fa_bars}`} />
+            <FontAwesomeIcon icon={faBars}/>
           </button>
-        </nav>
+         </nav> 
       </header></>
   )
 }

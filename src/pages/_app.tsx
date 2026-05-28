@@ -1,5 +1,6 @@
 import "@/styles/globals.css"
 import "@fortawesome/free-solid-svg-icons";
+import "@fortawesome/react-fontawesome"
 import { Montserrat } from "next/font/google";
 import type { AppProps } from "next/app";
 

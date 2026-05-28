@@ -1,48 +1,12 @@
+import Header from "@/components/header/header";
 import style from "./detalhePatrimonio.module.css"
+import ContainerLista from "@/components/containerLista/containerLista";
 
 const Login = () => {
 return(
 
 <>
-            <meta charSet="UTF-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <title>Histórico/Detalhes - Gestão de Patrimônios</title>
-            <link rel="stylesheet" href="detalhePatrimonio.css" />
-            <header className={style.topbar}>
-                <nav className={`${style.navbar} ${style.layout_guide}`} aria-label="Menu principal">
-                    <a href="#" className={style.logo_link} aria-label="Página inicial">
-                        <img src="../imgs/Logo Senai.png" alt="Logo SENAI" className={style.logo} />
-                    </a>
-                    <ul className={style.menu_list}>
-                        <li>
-                            <a href="#" className={style.menu_link}>
-                                Ambientes
-                                <i className={`${style.fa_solid} ${style.fa_chevron_down}`} />
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" className={style.menu_link}>
-                                Patrimônios
-                            </a>
-                        </li>
-                    </ul>
-                    <section className={style.user_area} aria-label="Informações do usuário">
-                        <button className={style.user_icon} aria-label="Abrir perfil do usuário">
-                            <i className={`${style.fa_solid} ${style.fa_user}`} />
-                        </button>
-                        <div className={style.user_info}>
-                            <strong>Késsia Milena</strong>
-                            <span>kessia@sp.senai.br</span>
-                        </div>
-                        <button className={style.arrow_button} aria-label="Abrir opções da conta">
-                            <i className={`${style.fa_solid} ${style.fa_chevron_down}`} />
-                        </button>
-                    </section>
-                    <button className={style.hamburguer} aria-label="Abrir opções de menu ">
-                        <i className={`${style.fa_solid} ${style.fa_bars}`} />
-                    </button>
-                </nav>
-            </header>
+            <Header/>
             <main className={style.page_content}>
                 <section className={`${style.page_detalhes} ${style.layout_guide}`} aria-labelledby={style.titulo_patrimonio}>
                     <a href="#" className={style.back_link}>
@@ -79,34 +43,8 @@ return(
                 </section>
                 <section className={`${style.table_section} ${style.layout_guide}`} aria-label="Lista de histórico do patrimônio">
                     <h2>Histórico</h2>
-                    <table className={style.history_table}>
-                        <thead>
-                            <tr>
-                                <th>Data</th>
-                                <th>Tipo de movimentação</th>
-                                <th>Origem</th>
-                                <th>Destino</th>
-                                <th>Responsável</th>
-                                <th>Justificativa</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td data-label="Data">11/02/2026</td>
-                                <td data-label="Tipo de movimentação">
-                                    <span className={style.status_badge}>Transferência</span>
-                                </td>
-                                <td data-label="Origem">Sala 07/08</td>
-                                <td data-label="Destino">Sala 09/10</td>
-                                <td data-label="Responsável">Gustavo Lima</td>
-                                <td data-label="Justificativa">
-                                    <a href="#" aria-label="Ver justificativa da transferência">
-                                        <i className={`${style.fa_solid} ${style.fa_circle_info}`} />
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <ContainerLista
+                    page="detalhe"/>
                 </section>
             </main>
         </>
