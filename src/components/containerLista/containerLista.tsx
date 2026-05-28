@@ -6,7 +6,22 @@ type ListaProps = {
     page?: string
 };
 
-const ContainerLista = ({ page }: ListaProps) => {
+interface Responsavel {
+    nome: string
+}
+
+interface Local{
+    nomeLocal: string,
+    areaID: string,
+    usuarioID: string,
+}
+
+interface Patrimônio{
+    denominacao: string,
+    numeroPatrimonio: string, 
+};
+
+const ContainerLista = ({ page }: ListaProps, ) => {
     return (
         <>
 
@@ -30,7 +45,6 @@ const ContainerLista = ({ page }: ListaProps) => {
         </table>
     </section>
 )}
-
 {page === "patrimonioSala" && (
     <section className="layout_guide">
         <table className={style.list_table}>
@@ -38,7 +52,6 @@ const ContainerLista = ({ page }: ListaProps) => {
                 <tr>
                     <th>Patrimônio</th>
                     <th>Denominação</th>
-                    <th>Data transferência</th>
                     <th>Ações</th>
                 </tr>
             </thead>
