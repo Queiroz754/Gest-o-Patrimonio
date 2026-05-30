@@ -13,4 +13,9 @@ export async function login(nif: string, senha: string){
     catch(error: any){
         throw new Error("Email ou senha inválidos"); 
     }
+
+}
+    export function logout()
+{
+    secureLocalStorage.removeItem("Token");
 }

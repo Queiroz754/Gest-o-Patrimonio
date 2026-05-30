@@ -1,5 +1,5 @@
 import Header from "@/components/header/header";
-import style from "./listaLocais.module.css";
+import style from "./listaAmbientes.module.css";
 import ContainerLista from "@/components/containerLista/containerLista";
 
 const ListaLocais = () => {
@@ -32,11 +32,10 @@ const ListaLocais = () => {
           </form>
         </section>
         <section
-          className={`${style.table_section} ${style.layout_guide}`}
+          className={style.table_section}
           aria-label="Lista de ambientes"
         >
-          <ContainerLista
-          page="ambiente"/>
+          <ContainerLista page="ambiente"/>
         </section>
         <nav className={style.pagination} aria-label="Paginação">
           <button

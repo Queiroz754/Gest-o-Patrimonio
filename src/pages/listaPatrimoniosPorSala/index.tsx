@@ -1,18 +1,6 @@
 import Header from "@/components/header/header";
 import style from "./listaPatrimoniosPorSala.module.css";
-import { useState } from "react";
-import { useParams } from "next/navigation";
-import { getUsuarioId } from "../api/usuarioService";
 import ContainerLista from "@/components/containerLista/containerLista";
-
-
-interface Usuario {
-  nomeTipoUsuario: string,
-  nome: string,
-  email: string
-}
-
-
 
 const ListaPatrimoniosPorSala = () => {
   return (
@@ -37,7 +25,6 @@ const ListaPatrimoniosPorSala = () => {
           <ContainerLista
           page="patrimonioSala"/>
         </section>
-
         <nav className={style.pagination} aria-label="Paginação">
           <button type="button" className={style.pagination_button} aria-label="Página anterior">
             ‹
